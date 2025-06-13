@@ -1,6 +1,6 @@
 # Prueba ITBF Back
 
-Este proyecto es una API backend desarrollada con Laravel. Sirve como base para pruebas técnicas y desarrollo rápido de aplicaciones modernas utilizando el framework Laravel, reconocido por su sintaxis elegante y herramientas robustas para el desarrollo web.
+Este proyecto es una API backend desarrollada con Laravel. Es el resultado de la prueba técnica realizada en ITBF.
 
 ## Características
 
@@ -16,7 +16,7 @@ Sigue estos pasos para instalar y ejecutar el proyecto localmente:
 
 1. **Clona el repositorio:**
    ```bash
-   git clone <URL_DEL_REPOSITORIO>
+   git clone https://github.com/nicoln042001/prueba_itbf.git
    cd PruebaITBF
    ```
 
@@ -54,7 +54,7 @@ Sigue estos pasos para instalar y ejecutar el proyecto localmente:
 
 ## Requisitos
 
-- PHP >= 8.1
+- PHP >= 8.2
 - Composer
 - MySQL o cualquier base de datos compatible
 
@@ -78,8 +78,3 @@ PruebaITBF/
 ├── composer.json
 └── README.md
 ```
-
-## Notas
-
-- Puedes personalizar la configuración de Laravel según las necesidades de tu equipo.
-- Para producción, revisa la documentación oficial de Laravel sobre despliegue y seguridad.

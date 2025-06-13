@@ -10,14 +10,21 @@ use App\Models\Acomodaciones;
 
 class HabitacionController extends Controller
 {
-    // Listar todas las habitaciones
+    /** 
+     * Listar todas las habitaciones
+     * @return \Illuminate\Http\JsonResponse
+    **/ 
     public function index()
     {
         $habitaciones = Habitacion::with('acomodacion','tipoHabitacion')->get();
         return response()->json($habitaciones, 200);
     }
 
-    // Mostrar una habitación específica
+    /**
+     * Consultar una habitacion por id
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show($id)
     {
         $habitacion = Habitacion::find($id);
@@ -27,13 +34,17 @@ class HabitacionController extends Controller
         return response()->json($habitacion, 200);
     }
 
-    // Crear una nueva habitación
+    /**
+     * Crear una nueva habitación
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
         $data = $request->all();
         $errores = [];
 
-        // Validaciones manuales
+        // Validaciones 
         if (empty($data['hotel_id']) || !is_numeric($data['hotel_id'])) {
             $errores['hotel_id'] = 'El hotel es requerido y debe ser un número válido.';
         }
@@ -97,7 +108,12 @@ class HabitacionController extends Controller
         return response()->json( $habitacion, 201);
     }
 
-    // Actualizar una habitación existente
+    /**
+     * Actualizar una habitación existente
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(Request $request, $id)
     {
         $habitacion = Habitacion::find($id);
@@ -145,23 +161,35 @@ class HabitacionController extends Controller
         return response()->json($habitacion, 201);
     }
 
-    // Eliminar una habitación
+    /**
+     * Eliminar una habitación
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy($id)
     {
         $habitacion = Habitacion::find($id);
         if (!$habitacion) {
             return response()->json(['mensaje' => 'Habitación no encontrada'], 404);
         }
-        $habitacion->estado;
+        $habitacion->delete();
         $habitacion->save();
         
         return response()->json(['mensaje' => 'Habitación eliminada correctamente'], 200);
     }
 
+    /**
+     * Obtener todas las acomodaciones
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getAcomodaciones(){
         return response()->json(Acomodaciones::all());
     }
 
+    /**
+     * Obtener todos los tipos de habitación
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getTipoHabitaciones(){
         return response()->json(TipoHabitacion::all());
     }

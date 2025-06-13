@@ -15,9 +15,18 @@ class Habitacion extends Model
         'estado'
     ];
 
+    
+    /**
+     * Get the acomodacion that owns the habitacion.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function acomodacion(){
         return $this->belongsTo(Acomodaciones::class);
     }
+    /**
+     * Get the tipoHabitacion that owns the habitacion.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function tipoHabitacion(){
         return $this->belongsTo(TipoHabitacion::class);
     }

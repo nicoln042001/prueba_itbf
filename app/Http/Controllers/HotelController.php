@@ -9,12 +9,21 @@ use Illuminate\Support\Facades\Validator;
 
 class HotelController extends Controller
 {
+    /**
+     * Listar todos los hoteles
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(){
         $hoteles = Hotel::all();
 
         return response()->json($hoteles, Response::HTTP_OK);
     }
 
+    /**
+     * Consultar un hotel por id
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function edit($id){
         $hotel = Hotel::find($id);
         if (!$hotel) {
@@ -24,6 +33,11 @@ class HotelController extends Controller
         return response()->json($hotel, Response::HTTP_OK);
     }
 
+    /**
+     * Crear un nuevo hotel
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request){
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:255',
@@ -43,6 +57,12 @@ class HotelController extends Controller
         return response()->json(['msg' => 'Se ha creado el hotel correctamente', 'hotel' => $hotel], Response::HTTP_CREATED);
     }
 
+    /**
+     * Actualizar un hotel existente
+     * @param int $id
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update($id, Request $request){
         $hotel = Hotel::find($id);
         if (!$hotel) {
@@ -67,12 +87,17 @@ class HotelController extends Controller
         return response()->json(['msg' => 'Se ha modificado el hotel correctamente', 'hotel' => $hotel], Response::HTTP_OK);
     }
 
+    /**
+     * Eliminar (cambiar estado a inactivo) un hotel
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete($id){
         $hotel = Hotel::find($id);
         if (!$hotel) {
             return response()->json(['msg' => 'Hotel no encontrado'], Response::HTTP_NOT_FOUND);
         }
-        $hotel->estado = false;
+        $hotel->delete();
         $hotel->save();
         return response()->json(['msg' => 'Se ha eliminado el hotel correctamente'], Response::HTTP_OK);
     }
